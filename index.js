@@ -41,7 +41,13 @@ async function run() {
       res.send(result)
     })
 
-
+    //get all jobs posted by a specific user
+    app.get('/jobs/:email', async(req, res) => {
+      const email = req.params.email
+      const query = {'buyer.email': email}
+      const result = await jobsCollection.find(query).toArray()
+      res.send(result)
+    })
 
     await client.db('admin').command({ ping: 1 })
     console.log(
